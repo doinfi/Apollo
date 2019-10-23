@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--载入参数-->
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:dubbo.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:app.properties" ignore-unresolvable="true"/>
+    <!--载入日志模块jdbc配置-->
+    <context:property-placeholder location="classpath:datasource/log-datasource.properties"
+                                  ignore-unresolvable="true"/>
+    <!--载入公共模块jdbc配置-->
+    <context:property-placeholder location="classpath:datasource/community-datasource.properties"
+                                  ignore-unresolvable="true"/>
+    <!-- 载入账户模块jdbc配置 -->
+    <context:property-placeholder location="classpath:datasource/account-jdbc.properties" ignore-unresolvable="true"/>
+    <!-- 载入用户模块jdbc配置 -->
+    <context:property-placeholder location="classpath:datasource/user-jdbc.properties" ignore-unresolvable="true"/>
+
+    <!--用于DefaultBaseService反射类获得spring托管的bean,就比如获得logService对象,通过反射的方式调用logService的方法-->
+    <bean id="springContextHolder" class="com.dubbo.demo.core.utils.SpringContextHolder"/>
+
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--日志模块Mapper-->
+<mapper namespace="com.dubbo.demo.logs.dao.mapper.LogMapperService">
+    <!--日志查询返回结果-->
+    <resultMap id="logResultMap" type="com.dubbo.demo.logs.dto.LogDTO">
+        <result column="id" property="id"/>
+        <result column="userid" property="userId"/>
+        <result column="loglevel" property="logLevel"/>
+        <result column="moduletype" property="moduleType"/>
+        <result column="operatecode" property="operateCode"/>
+        <result column="operatecontent" property="operateContent"/>
+        <result column="operatedesc" property="operateDesc"/>
+        <result column="paramjson" property="paramJson"/>
+        <result column="exceptioninfo" property="exceptionInfo"/>
+        <result column="operatetime" property="operateTime"/>
+        <result column="ipaddress" property="ipAddress"/>
+    </resultMap>
+
+    <!-- 新增用户操作日志 -->
+    <insert id="addOperateLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        t_operate_log(userid,moduletype,operatecode,operatecontent,operatedesc,operatetime,ipaddress)
+        VALUES(#{userId},#{moduleType},#{operateCode},#{operateContent},#{operateDesc},#{operateTime},#{ipAddress})
+    </insert>
+
+    <!--查询用户操作日志-->
+    <select id="findOperateLogs" resultMap="logResultMap">
+        SELECT
+        id,userid,moduletype,operatecode,operatecontent,operatedesc,operatetime,ipaddress
+        FROM t_operate_log
+        <where>
+            userid = #{userId}
+            <![CDATA[
+            AND operatetime >= #{startTime}
+            AND operatetime <= #{endTime}
+            ]]>
+        </where>
+    </select>
+
+    <!-- 新增错误日志 -->
+    <insert id="addErrorLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        t_error_log(userid,loglevel,moduletype,operatecode,operatecontent,operatedesc,paramjson,exceptioninfo,operatetime,ipaddress)
+        VALUES(#{userId},#{logLevel},#{moduleType},#{operateCode},#{operateContent},#{operateDesc},#{paramJson},#{exceptionInfo},#{operateTime},#{ipAddress})
+    </insert>
+
+    <!--查询错误日志-->
+    <select id="findErrorLogs" resultMap="logResultMap">
+        SELECT
+        id,userid,loglevel,moduletype,operatecode,operatecontent,operatedesc,paramjson,exceptioninfo,operatetime,ipaddress
+        FROM t_error_log
+        <where>
+            userid = #{userId}
+            <![CDATA[
+            AND operatetime >= #{startTime}
+            AND operatetime <= #{endTime}
+            ]]>
+        </where>
+    </select>
+
+    <!--日志文件地址-->
+    <resultMap id="logFileResultMap" type="com.dubbo.demo.logs.dto.LogFileDTO">
+        <result column="id" property="id"/>
+        <result column="logtype" property="logType"/>
+        <result column="logid" property="logId"/>
+        <result column="fileurl" property="fileUrl"/>
+    </resultMap>
+
+    <!--根据日志ID查询对应的日志文件地址-->
+    <select id="findLogFilesByLogId" resultMap="logFileResultMap">
+        SELECT id,logtype,logid,fileurl
+        FROM t_log_file
+        WHERE logid = #{logId}
+          AND logtype = #{logType}
+    </select>
+
+    <!--批量新增日志文件地址,包括原始数据,轨迹文件等-->
+    <insert id="addLogFiles">
+        INSERT INTO t_log_file(logtype,logid,fileurl)
+        VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.logType},#{item.logId},#{item.fileUrl})
+        </foreach>
+    </insert>
+
+</mapper>

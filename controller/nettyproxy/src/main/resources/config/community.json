@@ -1,0 +1,38 @@
+{
+  "module": "checkCodeService",
+  "desc": "公共模块,getCheckCode:获取验证码;verifyCheckCode:判断验证码是否正确",
+  "funcs": [
+    {
+      "name": "getVerifyCode.do",
+      "validate": false,
+      "parse": "com.dubbo.demo.community.service.CheckCodeService.getCheckCode",
+      "params": [
+        {
+          "name": "mobile"
+        },
+        {
+          "name": "actionType"
+        }
+      ],
+      //需要转发层获得用户的信息,传到服务层,比如说用户IP地址
+      "nettyParams": [
+        {
+          "name": "ipAddress"
+        }
+      ]
+    },
+    {
+      "name": "checkVerifyCode.do",
+      "validate": false,
+      "parse": "com.dubbo.demo.community.service.CheckCodeService.verifyCheckCode",
+      "params": [
+        {
+          "name": "mobile"
+        },
+        {
+          "name": "checkCode"
+        }
+      ]
+    }
+  ]
+}

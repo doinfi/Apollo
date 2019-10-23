@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <!--<context:property-placeholder location="classpath*:datasource/log-datasource.properties"/>-->
+
+    <context:annotation-config/>
+    <tx:annotation-driven/>
+
+    <!--配置整合mybatis过程-->
+    <bean id="abstractXADataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+          init-method="init" destroy-method="close" abstract="true">
+        <property name="xaDataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource"/>
+        <property name="poolSize" value="${log.jdbc.poolSize}"/>
+        <property name="minPoolSize" value="${log.jdbc.minPoolSize}"/>
+        <property name="maxPoolSize" value="${log.jdbc.maxPoolSize}"/>
+        <property name="borrowConnectionTimeout" value="${log.jdbc.borrowConnectionTimeout}"/>
+        <property name="reapTimeout" value="${log.jdbc.reapTimeout}"/>
+        <property name="maxIdleTime" value="${log.jdbc.maxIdleTime}"/>
+        <property name="maintenanceInterval" value="${log.jdbc.maintenanceInterval}"/>
+        <property name="loginTimeout" value="${log.jdbc.loginTimeout}"/>
+        <property name="logWriter" value="${log.jdbc.logWriter}"/>
+        <property name="maxLifetime" value="${log.jdbc.maxLifetime}"/>
+        <property name="testQuery">
+            <value>select 1</value>
+        </property>
+    </bean>
+    <!-- mysql数据源 -->
+    <bean id="log_ds" parent="abstractXADataSource">
+        <!-- value只要两个数据源不同就行，随便取名 -->
+        <property name="uniqueResourceName" value="mysql_log"/>
+        <property name="xaDataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource"/>
+        <property name="xaProperties">
+            <props>
+                <prop key="URL">${log.jdbc.url}</prop>
+                <prop key="user">${log.jdbc.username}</prop>
+                <prop key="password">${log.jdbc.password}</prop>
+                <prop key="pinGlobalTxToPhysicalConnection">true</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="sqlSessionFactory_log" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="log_ds"/>
+        <property name="mapperLocations" value="classpath*:mapper/LogMapper.xml"/>
+    </bean>
+
+    <!-- 加载IContractAccountMapper.java所在路径 -->
+    <!-- 将mybatis映射的mapper进行自动扫描，并且加入到spring的容器中 -->
+    <bean id="dopaMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--可用,或者;分割多个扫描的包 -->
+        <!--正确的配置,dao层的注入一定要指定到相应的dao包路径,不然会引起类注入名称冲突-->
+        <property name="basePackage" value="com.dubbo.demo.logs.dao.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_log"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="[dubbo-log日志]%d{yyyy-MM-dd HH:mm:ss.sss} %-5p [%c{1}] %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="debugLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Users/Infi/Desktop/dubbolog/debug/debug.log"/>
+        <param name="Append" value="false"/>
+        <param name="maxFileSize" value="2000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="Threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[dubbo-log日志]%d{yyyy-MM-dd HH:mm:ss.sss} [%-5p] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="infoLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Users/Infi/Desktop/dubbolog/info/info.log"/>
+        <param name="Append" value="false"/>
+        <param name="maxFileSize" value="2000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="Threshold" value="INFO"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[dubbo-log日志]%d{yyyy-MM-dd HH:mm:ss.sss} [%-5p] %c - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="errorLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Users/Infi/Desktop/dubbolog/error.log"/>
+        <param name="Append" value="false"/>
+        <param name="maxFileSize" value="2000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="Threshold" value="ERROR"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[dubbo-log日志]%d{yyyy-MM-dd HH:mm:ss.sss} [%-5p] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="warnLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Users/Infi/Desktop/dubbolog/warn/warn.log"/>
+        <param name="Append" value="false"/>
+        <param name="maxFileSize" value="2000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="Threshold" value="WARN"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[dubbo-log日志]%d{yyyy-MM-dd HH:mm:ss.sss} [%-5p] %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="asyncDebugLog" class="org.apache.log4j.AsyncAppender">
+        <param name="BufferSize" value="512"/>
+        <appender-ref ref="debugLog"/>
+    </appender>
+
+
+    <logger name="net.sf.ehcache" additivity="false">
+        <level value="error"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+
+    <!--  DEBUG下拦截多余日志, level都改成debug则显示debug日志 -->
+
+    <logger name="com.opensymphony.xwork2" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.springframework" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="com.mchange.v2" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.apache.commons.httpclient" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="org.apache.ibatis" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.ibatis.spring" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- <logger name="com.alibaba" additivity="false">
+     	<level value="ERROR"/>
+        <appender-ref ref="STDOUT" />
+    </logger>
+ 	    <logger name="org.apache.zookeeper" additivity="false">
+     	<level value="ERROR"/>
+        <appender-ref ref="STDOUT" />
+    </logger> -->
+    <!--  end  -->
+
+    <logger name="com.dubbo.demo" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugLog"/>
+        <appender-ref ref="infoLog"/>
+        <appender-ref ref="warnLog"/>
+        <appender-ref ref="errorLog"/>
+    </logger>
+
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugLog"/>
+        <appender-ref ref="infoLog"/>
+        <appender-ref ref="warnLog"/>
+        <appender-ref ref="errorLog"/>
+    </root>
+</log4j:configuration>

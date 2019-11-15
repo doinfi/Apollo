@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.apollo</groupId>
+    <artifactId>poms</artifactId>
+    <version>2.0</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
+        <spring-boot-admin.version>1.5.7</spring-boot-admin.version>
+        <oauth2.version>1.0.2</oauth2.version>
+        <dubbo.version>2.6.0</dubbo.version>
+        <quartz.version>2.3.0</quartz.version>
+        <springfox-swagger.version>2.8.0</springfox-swagger.version>
+        <zookeeper.version>3.4.11</zookeeper.version>
+        <protobuf.version>3.5.1</protobuf.version>
+        <poi.version>3.17</poi.version>
+
+        <spring-kafka.version>1.3.4.RELEASE</spring-kafka.version>
+        <kafka-clients.version>0.11.0.0</kafka-clients.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-freemarker</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-actuator-docs</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId> org.springframework.boot </groupId>
+                <artifactId> spring-boot-configuration-processor </artifactId>
+                <version>${spring-boot.version}</version>
+                <optional> true </optional>
+            </dependency>
+
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>3.3.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery</artifactId>
+                <version>2.2.4</version>
+            </dependency>
+            <!--2018年05月24日 新增， 用于激活日报导入 End-->
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox-swagger.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox-swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>0.10</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>zookeeper</artifactId>
+                        <groupId>org.apache.zookeeper</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-log4j12</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.3.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.cryptonode.jncryptor</groupId>
+                <artifactId>jncryptor</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.twilio.sdk</groupId>
+                <artifactId>twilio-java-sdk</artifactId>
+                <version>6.3.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.51</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.20</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.10.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <!--不要用版本6-->
+                <version>5.1.45</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>1.1.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>1.11.290</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>24.0-jre</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>3.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.25</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.7.25</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-web-api</artifactId>
+                <version>6.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.atomikos</groupId>
+                <artifactId>transactions-jdbc</artifactId>
+                <version>4.0.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server-ui</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server-ui-login</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.oltu.oauth2</groupId>
+                <artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
+                <version>${oauth2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.oltu.oauth2</groupId>
+                <artifactId>org.apache.oltu.oauth2.client</artifactId>
+                <version>${oauth2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.oltu.oauth2</groupId>
+                <artifactId>org.apache.oltu.oauth2.resourceserver</artifactId>
+                <version>${oauth2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.googlejavaformat</groupId>
+                <artifactId>google-java-format</artifactId>
+                <version>1.5</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.jmimemagic</groupId>
+                <artifactId>jmimemagic</artifactId>
+                <version>0.1.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>4.3.14.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.5.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>1.9.22</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ibm.icu</groupId>
+                <artifactId>icu4j</artifactId>
+                <version>4.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.javolution</groupId>
+                <artifactId>javolution</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.kafka</groupId>
+                        <artifactId>kafka-clients</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-clients.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.maxmind.geoip2</groupId>
+                <artifactId>geoip2</artifactId>
+                <version>2.12.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.maps</groupId>
+                <artifactId>google-maps-services</artifactId>
+                <version>0.2.11</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>3.4.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>3.14.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.13</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

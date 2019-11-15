@@ -1,0 +1,167 @@
+zookeeper:
+  address: ${zookeeper.address}
+
+dubbo:
+  port: ${providerPort}
+
+#endpoints:
+#  enabled: ${endpointsEnabled}
+
+management:
+  security:
+    enabled: ${securityEnabled}
+
+mybatis:
+  mapper-locations: classpath:/config/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: ${httpPort}
+#  context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  boot:
+    admin:
+      url: http://${spring.boot.admin.server.ip}:9999
+      username: admin       #These two are needed so that the client
+      password: 123456   #can register at the protected server api
+
+  datasource:
+    driver-class-name:  com.mysql.jdbc.Driver
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: ${druid.initialSize}
+      max-active: ${druid.maxActive}
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid2/*"
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: 11
+        login-password: 11
+        # 设置白名单
+        allow: 127.0.0.1,218.16.102.229,218.16.102.226
+        # 设置黑名单
+        #deny: 192.168.1.73
+      # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+      aop-patterns: com.yf.coros.*.service.*
+
+  mail:
+    host: ${mail.host}
+    username: ${mail.username}
+    password: ${mail.password}
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: ${mail.port}
+
+  http:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  application:
+    name: @project.artifactId@
+
+coros:
+  email:
+    systemEmail: ${coros.email.systemEmail}
+  checkCode:
+    requestCount: 20
+    ipRequestCount: 100
+  activateUrl: ${activateUrl}
+  resetPasswordUrl: ${resetPasswordUrl}
+  #密码错误20次,当天不能再登录
+  pwdErrorCount: 20
+  ecsPath: ${coros.ecsPath}
+  ossPath: ${coros.ossPath}
+  ecsUrl: ${coros.ecsUrl}
+  ossUrl: ${coros.ossUrl}
+  awsS3Url: ${coros.awsS3Url}
+  maxTimezone: 96
+  defaultGender: 0
+  defaultStature: 60
+  defaultWeight: 175
+  defaultBirthday: 19850101
+  defaultTimezone: 0
+  defaultTargetMotionTime: 1800
+  defaultTargetCalorie: 150000
+  sosLocationValidTimeHours: 24
+  sosLocationClearUpTimeDay: 30
+  sosMaxAddContactNumberToday: 30
+  rhrDefault: 60
+  rhrMax: 90
+  rhrMin: 30
+  regularInternalUserEmal: ${regularInternalUserEmail}
+  emailRegisterImageurlCn: ${emailRegisterImageurlCn}
+  emailRegisterImageurlEn: ${emailRegisterImageurlEn}
+  regionDefaultLanguage: ${regionDefaultLanguage}
+  emailAllLanguage: ${emailAllLanguage}
+  resetPwdImageUrl: ${resetPwdImageUrl}
+  shortPathTagCn: c
+  shortPathTagEn: e
+  shortUrl: ${shortUrl}
+
+#头像文件放在oss上面去
+avatar:
+#头像文件不能超过5mb
+  fileMaxSize: 5242880
+#头像地址
+  url: ${avatar.url}
+
+#短信发送
+#sos短信发送，半小时内只能发送一条
+sos:
+  nextInterval: 1800
+#sos短信发送一天只能发送10条
+  maxNumberToday: 30
+#sos 页面访问地址
+  url: ${sos.url}
+  urlCn: ${sos.urlCn}
+
+#sossms 短信发送的账户信息
+twilio:
+  fromNumber: 1
+
+#coros业务参数
+MESSAGE_SUFFIX: 【COROS】
+#合并标签模式1:累加;2:覆盖 ;针对分钟数据
+
+# 日志文件路径
+logging:
+  config: ${logConfig}
+
+#aws 配置
+aws:
+  accessKey:
+  secretKey:
+  bucketName:
+
+#主键生成器配置信息
+primaryKey:
+    #序列号占14位
+    sequenceBit: 14
+    # 模块号占7位
+    modeBit: 7
+    # 机器码或者服务实例编号占7位
+    workeridBit: 7
+    # 机器码或者服务实例编号
+    workerid: ${workerid}
+
+#打包类型，1：现场正式环境，2：测试环境，3：开发环境
+deployType: ${deployType}

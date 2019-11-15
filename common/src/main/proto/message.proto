@@ -1,0 +1,32 @@
+syntax = "proto3";
+package com.yf.coros.training;
+option java_outer_classname = "MessagePb";
+
+import "request.proto";
+import "response.proto";
+import "msg_type_enum.proto";
+
+/**
+ * 服务端与APP端通讯的消息包
+ *
+ * @author DingHui
+ * @date 2019/11/29
+ */
+message Message {
+    //消息类型，请求or响应
+    enum TypeEnum{
+        REQUEST=0;
+        RESPONSE=1;
+    }
+
+    TypeEnum type =1;//消息类型
+
+    MsgTypeEnum msg_type=2;//消息子类型
+
+    //oneof块中的字段不支持repeated
+    oneof body {
+        //request和response有且只能有一个被赋值
+        Request request = 10;//请求的消息体
+        Response response = 20;//服务端返回的消息体
+    }
+}

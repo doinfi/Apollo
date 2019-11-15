@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+
+    <!-- 具体的实现bean -->
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="coors-rest"/>
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.address}"/>
+    <!-- 禁止重试动作 -->
+    <dubbo:provider delay="-1" retries="0" timeout="20000"/>
+
+    <dubbo:reference check="false" id="accountService" interface="com.yf.coros.user.service.AccountService"/>
+    <dubbo:reference check="false" id="userInfoService" interface="com.yf.coros.user.service.UserInfoService"/>
+    <dubbo:reference check="false" id="tmpAccountService" interface="com.yf.coros.user.service.TmpAccountService"/>
+    <dubbo:reference check="false" id="loginService" interface="com.yf.coros.user.service.LoginService"/>
+    <dubbo:reference check="false" id="checkCodeService" interface="com.yf.coros.user.service.CheckCodeService"/>
+    <dubbo:reference check="false" id="sosService" interface="com.yf.coros.user.service.SosService"/>
+    <dubbo:reference check="false" id="thirdPartyService" interface="com.yf.coros.user.service.ThirdPartyService"/>
+    <dubbo:reference check="false" id="sosLocationService" interface="com.yf.coros.user.service.SosLocationService"/>
+    <dubbo:reference check="false" id="userProfileService" interface="com.yf.coros.user.service.UserProfileService"/>
+    <dubbo:reference check="false" id="emergencyContactsService" interface="com.yf.coros.user.service.EmergencyContactsService"/>
+    <dubbo:reference check="false" id="algorithmProfileService" interface="com.yf.coros.user.service.AlgorithmProfileService"/>
+    <dubbo:reference check="false" id="goMoreUserInfoService" interface="com.yf.coros.user.service.GoMoreUserInfoService"/>
+    <dubbo:reference check="false" id="userUtilService" interface="com.yf.coros.user.service.UserUtilService"/>
+    <dubbo:reference check="false" id="dailyTargetService" interface="com.yf.coros.user.service.DailyTargetService"/>
+
+    <dubbo:reference check="false" id="bikeRouteService" interface="com.yf.coros.data.service.BikeRouteService"/>
+    <dubbo:reference check="false" id="bikeTeamService" interface="com.yf.coros.data.service.BikeTeamService"/>
+    <dubbo:reference check="false" id="bikeTeamUserService" interface="com.yf.coros.data.service.BikeTeamUserService"/>
+    <dubbo:reference check="false" id="sportDataService" interface="com.yf.coros.data.service.SportDataService"/>
+    <dubbo:reference check="false" id="labelStatusService" interface="com.yf.coros.data.service.LabelStatusService"/>
+    <dubbo:reference check="false" id="cycleService" interface="com.yf.coros.data.service.CycleService"/>
+    <dubbo:reference check="false" id="runService" interface="com.yf.coros.data.service.RunService"/>
+    <dubbo:reference check="false" id="swimService" interface="com.yf.coros.data.service.SwimService"/>
+    <dubbo:reference check="false" id="triathlonService" interface="com.yf.coros.data.service.TriathlonService"/>
+    <dubbo:reference check="false" id="dailyDataService" interface="com.yf.coros.data.service.DailyDataService"/>
+    <dubbo:reference check="false" id="careerService" interface="com.yf.coros.data.service.CareerService"/>
+    <dubbo:reference check="false" id="messageService" interface="com.yf.coros.data.service.MessageService"/>
+    <dubbo:reference check="false" id="userExtendService" interface="com.yf.coros.data.service.UserExtendService"/>
+    <dubbo:reference check="false" id="sportDataMonthService" interface="com.yf.coros.data.service.SportDataMonthService"/>
+    <dubbo:reference check="false" id="trackService" interface="com.yf.coros.data.service.TrackService"/>
+    <dubbo:reference check="false" id="climbService" interface="com.yf.coros.data.service.ClimbService"/>
+    <dubbo:reference check="false" id="trailRunService" interface="com.yf.coros.data.service.TrailRunService"/>
+    <dubbo:reference check="false" id="hikeService" interface="com.yf.coros.data.service.HikeService"/>
+    <dubbo:reference check="false" id="sportDataElevationTaskService" interface="com.yf.coros.data.service.SportDataElevationTaskService"/>
+    <dubbo:reference check="false" id="userActionLockService" interface="com.yf.coros.data.service.UserActionLockService"/>
+    <dubbo:reference check="false" id="dailyDataCountService" interface="com.yf.coros.data.service.DailyDataCountService"/>
+    <dubbo:reference check="false" id="sportDataCountService" interface="com.yf.coros.data.service.SportDataCountService"/>
+
+    <dubbo:reference check="false" id="adminService" interface="com.yf.coros.device.service.AdminService"/>
+    <dubbo:reference check="false" id="firmwareService" interface="com.yf.coros.device.service.FirmwareService"/>
+    <dubbo:reference check="false" id="userDownloadLogService" interface="com.yf.coros.device.service.UserDownloadLogService"/>
+    <dubbo:reference check="false" id="firmwareConfigService" interface="com.yf.coros.device.service.FirmwareConfigService"/>
+    <dubbo:reference check="false" id="appVersionService" interface="com.yf.coros.device.service.AppVersionService"/>
+    <dubbo:reference check="false" id="watchFaceService" interface="com.yf.coros.device.service.WatchFaceService"/>
+    <dubbo:reference check="false" id="deviceUtilService" interface="com.yf.coros.device.service.DeviceUtilService"/>
+
+    <dubbo:reference check="false" id="deviceService" interface="com.yf.coros.device.service.DeviceService"/>
+    <dubbo:reference check="false" id="deviceLogService" interface="com.yf.coros.device.service.DeviceLogService"/>
+    <dubbo:reference check="false" id="deviceUserRecordService" interface="com.yf.coros.device.service.DeviceUserRecordService"/>
+    <dubbo:reference check="false" id="authService" interface="com.yf.coros.open.service.AuthService"/>
+
+    <dubbo:reference check="false" id="appConfigService" interface="com.yf.coros.profile.service.AppProfileService"/>
+
+    <dubbo:reference check="false" id="crossRegionService" interface="com.yf.coros.crossregion.service.CrossRegionService"/>
+    <dubbo:reference check="false" id="dataCollectProfileService" interface="com.yf.coros.profile.service.DataCollectProfileService"/>
+
+    <dubbo:reference check="false" id="thirdpartySportTaskService" interface="com.yf.coros.thirdparty.service.ThirdpartySportTaskService"/>
+    <dubbo:reference check="false" id="goMoreSportAsyncService" async="true" interface="com.yf.coros.thirdparty.service.GoMoreSportAsyncService"/>
+    <dubbo:reference check="false" id="goMoreSportService" interface="com.yf.coros.thirdparty.service.GoMoreSportService"/>
+    <dubbo:reference check="false" id="goMoreDeviceService" interface="com.yf.coros.device.service.GoMoreDeviceService"/>
+    <!-- debug -->
+    <!--<dubbo:reference check="false" id="thirdpartySportTaskService" interface="com.yf.coros.thirdparty.service.ThirdpartySportTaskService"/>-->
+    <!--<dubbo:reference check="false" id="goMoreSportAsyncService" async="true" interface="com.yf.coros.thirdparty.service.GoMoreSportAsyncService"/>-->
+    <!-- debug end -->
+</beans>

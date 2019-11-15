@@ -1,0 +1,82 @@
+.queryform {
+    height: 130px;
+    border: 1px solid #ccc;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.queryform span {
+    width: 85px;
+    float: left;
+}
+
+.queryform table {
+    width: 100%;
+}
+
+.queryform table tr {
+    height: 30px;
+}
+
+#btnQuery {
+    width: 250px;
+}
+
+.feedback {
+    table-layout: fixed;
+    word-break: break-all;
+    word-wrap: break-all;
+}
+
+.table td span {
+    float: left;
+    width: 100%;
+}
+
+.table th {
+    text-align: center;
+}
+
+button {
+    width: 70px;
+    height: 30px;
+    margin-top: 6px;
+}
+
+button[disabled=disabled] {
+    background-color: #CCCCCC;
+}
+
+.dateselector {
+    padding-top: 10px
+}
+
+.control-group {
+    float: right;
+    padding-right: 20px;
+}
+
+.control-group .controls {
+    float: left;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.control-group .control-label {
+    float: left;
+}
+
+.modal-dialog {
+    width: 800px;
+}
+
+#txtreply {
+    margin: 0px;
+    width: 737px;
+    height: 119px;
+}
+
+#dlg_time {
+    float: right;
+    padding-right: 20px;
+}

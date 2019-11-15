@@ -1,0 +1,20 @@
+syntax = "proto3";
+package com.yf.coros.training;
+option java_outer_classname = "TargetEnumPb";
+
+/**
+ * 运动目标枚举
+ *
+ * @author DingHui
+ * @date 2019/11/29
+ */
+enum TargetEnum {
+
+   END_MANUALLY=0;//手动结束
+   TIME=1;//时间
+   REPS=2;//次数
+   HEART_RATE=3;//心率
+   DISTANCE=4;//距离
+   POWER=5;//功率
+
+}

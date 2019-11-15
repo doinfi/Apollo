@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <title id="title">Failed to access server</title>
+    <link rel="stylesheet" type="text/css" href="../accset/biz/style.css">
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="logo"><img src="../accset/image/logo.png"></div>
+    <div class="icon"><img src="../accset/image/icon_failed.jpg"></div>
+    <p class="message" id="message">Failed to access server.<br>Please refresh of try again later.
+    </p>
+</div>
+
+</body>
+<script src="../accset/biz/zepto/zepto.js"></script>
+<script>
+    function request(strName) {
+        var strHref = window.document.location.href;
+        var intPos = strHref.indexOf("?");
+        var strRight = strHref.substr(intPos + 1);
+        var arrTmp = strRight.split("&");
+        for (var i = 0; i < arrTmp.length; i++) {
+            var arrTemp = arrTmp[i].split("=");
+            if (arrTemp[0].toUpperCase() == strName.toUpperCase()) {
+                return arrTemp[1];
+            }
+        }
+        return "";
+    }
+
+    var message = request('message');
+    var language = request('language');
+    if (language === undefined || language === '') {
+        language = "en-US";
+    }
+    // language
+    var title_en = "Failed to access server";
+
+    var title_zh = "访问异常";
+    if (language === 'zh-CN') {
+        $('#title').text(title_en);
+    } else {
+        $('#title').text(title_zh);
+    }
+    $('#message').text(decodeURI(message));
+</script>
+</html>

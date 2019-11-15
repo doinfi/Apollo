@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.coros.user.dao.AccountDao">
+    <resultMap id="UserAccountMap" type="com.yf.coros.common.entity.user.Account"/>
+
+    <insert id="add" keyProperty="userId" useGeneratedKeys="true">
+        INSERT INTO
+        t_account (user_id, mobile, email, facebook_id, facebook_name, weixin_id, weixin_name, pwd,
+        access_token,
+        validity_date,
+        register_type, client_type, register_client_type, login_type, ip_address, create_date,
+        activate_status)
+        VALUES (#{userId}, #{mobile}, #{email}, #{facebookId}, #{facebookName}, #{weixinId},
+        #{weixinName}, #{pwd},
+        #{accessToken},
+        #{validityDate}, #{registerType}, #{registerClientType}, #{clientType}, #{loginType},
+        #{ipAddress}, #{createDate}, #{activateStatus})
+    </insert>
+
+    <update id="update">
+        UPDATE t_account
+        <set>
+            <if test="mobile != null and mobile != '' ">
+                mobile=#{mobile},
+            </if>
+            <if test="email != null and email != '' ">
+                email=#{email},
+            </if>
+            <if test="facebookId != null and facebookId != '' ">
+                facebook_id=#{facebookId},
+            </if>
+            <if test="weixinId != null and weixinId != '' ">
+                weixin_id=#{weixinId},
+            </if>
+        </set>
+        <where>
+            user_id = #{userId}
+        </where>
+    </update>
+
+    <update id="updateAccountToken">
+        UPDATE t_account
+        <set>
+            access_token = #{accessToken},
+            validity_date = #{validityDate},
+            login_type = #{loginType},
+            <if test="clientType != null and clientType !=0">
+                client_type = #{clientType},
+            </if>
+        </set>
+        WHERE user_id=#{userId}
+    </update>
+
+    <update id="updateGomoreUserStatus">
+        UPDATE t_account
+        <set>
+            gomore_user_status = #{gomoreUserStatus}
+        </set>
+        WHERE user_id=#{userId}
+    </update>
+
+    <sql id="common_fields">
+        user_id, mobile, email, facebook_id, weixin_id, weixin_name, facebook_name, access_token,
+        validity_date, client_type,
+        register_client_type, create_date, register_type, login_type, activate_status
+    </sql>
+
+    <select id="findAccountByUserId" resultMap="UserAccountMap">
+        SELECT
+        <include refid="common_fields"/>
+        FROM t_account
+        WHERE user_id=#{userId}
+    </select>
+
+    <select id="findAccountByUserIdList" resultMap="UserAccountMap">
+        SELECT
+        <include refid="common_fields"/>
+        FROM t_account
+        <where>
+            <foreach collection="userIdList" index="index" item="item" separator="or">
+                user_id = #{item}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="findAccountByEmail" resultMap="UserAccountMap">
+        SELECT
+        <include refid="common_fields"/>
+        FROM t_account
+        WHERE email=#{email}
+    </select>
+
+    <select id="findAccountIsExist" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_account
+        <where>
+            <if test="mobile != null and mobile !='' ">
+                OR mobile = #{mobile}
+            </if>
+            <if test="email != null and email !='' ">
+                OR email = #{email}
+            </if>
+            <if test="facebookId != null and facebookId !='' ">
+                OR facebook_id = #{facebookId}
+            </if>
+            <if test="weixinId != null and weixinId !='' ">
+                OR weixin_id = #{weixinId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAccountIsExistByAccountType" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_account
+        <where>
+            <choose>
+                <when test="accountType == 1">
+                    mobile = #{account}
+                </when>
+                <when test="accountType == 2">
+                    email = #{account}
+                </when>
+                <when test="accountType == 3">
+                    facebook_id = #{account}
+                </when>
+                <when test="accountType == 4">
+                    weixin_id = #{account}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <select id="findMobileIsExist" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_account
+        WHERE mobile = #{mobile}
+    </select>
+
+    <select id="findEmailIsExist" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_account
+        WHERE email = #{email}
+    </select>
+
+    <sql id="fields_filter_summary">
+        user_id, mobile, email, facebook_id, weixin_id, weixin_name, facebook_name, pwd
+    </sql>
+
+    <!--根据mobile或者email查询用户userId 登录是验证帐号密码是否正确。一次登录方式只能是mobile或者email,-->
+    <select id="findAccountByMobileOrEmailAndPwd" resultMap="UserAccountMap">
+        SELECT
+        <include refid="fields_filter_summary"/>
+        FROM t_account
+        <where>
+            <if test="mobile != null and mobile != ''">
+                AND mobile = #{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                AND email = #{email}
+            </if>
+        </where>
+    </select>
+
+    <select id="findUserIdByMobileOrEmail" resultType="java.lang.Long">
+        SELECT user_id
+        FROM t_account
+        <where>
+            <if test="mobile != null and mobile != ''">
+                AND mobile = #{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                AND email = #{email}
+            </if>
+        </where>
+    </select>
+
+    <!--根据OpenId查询用户userId 登录时验证openId是否正确, openId登录不能同时传facebookId和-->
+    <select id="findAccountByOpenId" resultMap="UserAccountMap">
+        SELECT
+        <include refid="fields_filter_summary"/>
+        FROM t_account
+        <where>
+            <if test="facebookId != null and facebookId != ''">
+                AND facebook_id = #{facebookId}
+            </if>
+            <if test="weixinId != null and weixinId != ''">
+                AND weixin_id = #{weixinId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询用户帐号概要信息-->
+    <select id="findAccountSummary" resultMap="UserAccountMap">
+        SELECT
+        <include refid="fields_filter_summary"/>
+        FROM t_account
+        <where>
+            <choose>
+                <when test="accountType == 1">
+                    mobile = #{account}
+                </when>
+                <when test="accountType == 2">
+                    email = #{account}
+                </when>
+                <when test="accountType == 3">
+                    facebook_id = #{account}
+                </when>
+                <otherwise>
+                    weixin_id = #{account}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--验证accessToken是否有效-->
+    <select id="findAccessTokenIsValid" resultMap="UserAccountMap">
+        SELECT user_id,access_token,validity_date,email FROM t_account
+        <where>
+            access_token = #{accessToken}
+            <![CDATA[
+            AND validity_date >#{validityDate}
+            ]]>
+        </where>
+    </select>
+
+    <select id="findAccountByAccessToken" resultMap="UserAccountMap">
+        SELECT
+        <include refid="common_fields"/>
+        FROM t_account
+        <where>
+            access_token = #{accessToken}
+            <![CDATA[
+            AND validity_date >#{validityDate}
+            ]]>
+        </where>
+    </select>
+
+    <select id="findAccountAndPwdByAccessToken" resultMap="UserAccountMap">
+        SELECT
+        <include refid="common_fields"/>,pwd
+        FROM t_account
+        <where>
+            access_token = #{accessToken}
+            <![CDATA[
+            AND validity_date >#{validityDate}
+            ]]>
+        </where>
+    </select>
+
+    <update id="updateAccessTokenByLogout">
+        UPDATE t_account
+        SET access_token = null,
+        validity_date = null
+        <where>
+            access_token = #{accessToken}
+        </where>
+    </update>
+
+    <update id="bind">
+        UPDATE t_account
+        <set>
+            <choose>
+                <when test="accountType ==1">
+                    mobile = #{account},
+                </when>
+                <when test="accountType ==2">
+                    email = #{account},
+                </when>
+                <when test="accountType ==3">
+                    facebook_id = #{account},
+                    facebook_name = #{nickname},
+                </when>
+                <when test="accountType ==4">
+                    weixin_id = #{account},
+                    weixin_name = #{nickname},
+                </when>
+            </choose>
+        </set>
+        <where>
+            user_id = #{userId}
+            <!--<choose>-->
+            <!--<when test="accountType ==1">-->
+            <!--AND (mobile IS NULL OR mobile = '')-->
+            <!--</when>-->
+            <!--<when test="accountType ==2">-->
+            <!--AND (email IS NULL OR email = '')-->
+            <!--</when>-->
+            <!--<when test="accountType ==3">-->
+            <!--AND (facebook_id IS NULL OR facebook_id = '')-->
+            <!--</when>-->
+            <!--<when test="accountType ==4">-->
+            <!--AND (weixin_id IS NULL OR weixin_id = '')-->
+            <!--</when>-->
+            <!--</choose>-->
+        </where>
+    </update>
+
+    <update id="unbind">
+        UPDATE t_account
+        <set>
+            <choose>
+                <when test="accountType ==1">
+                    mobile = null,
+                </when>
+                <when test="accountType ==2">
+                    email = null,
+                    activate_status = 0,
+                    pwd = null,
+                </when>
+                <when test="accountType ==3">
+                    facebook_id = null,
+                    facebook_name = null,
+                </when>
+                <when test="accountType ==4">
+                    weixin_id = null,
+                    weixin_name = null,
+                </when>
+            </choose>
+        </set>
+        <where>
+            user_id = #{userId}
+            <choose>
+                <when test="accountType ==1">
+                    AND mobile = #{account}
+                </when>
+                <when test="accountType ==2">
+                    AND email = #{account}
+                </when>
+                <when test="accountType ==3">
+                    AND facebook_id = #{account}
+                </when>
+                <when test="accountType ==4">
+                    AND weixin_id = #{account}
+                </when>
+            </choose>
+        </where>
+    </update>
+
+    <update id="updateAccountPasswordByUserId">
+        UPDATE t_account
+        SET pwd = #{pwd}
+        WHERE user_id = #{userId}
+    </update>
+    <!-- 用户信息map对象 -->
+    <resultMap id="userSimpleInfo" type="com.yf.coros.common.entity.user.UserSimpleInfo">
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="findSimpleUserInfoByToken" resultMap="userSimpleInfo">
+        SELECT
+        user_id,validity_date
+        FROM t_account
+        <where>
+            access_token = #{accessToken}
+            <![CDATA[
+            AND validity_date >#{validityDate}
+            ]]>
+        </where>
+    </select>
+
+    <update id="updateAccountEmailActivateStatus">
+        UPDATE t_account
+        <set>
+            activate_status = 1,
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="pwd != null and pwd != ''">
+                pwd = #{pwd}
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateAccountTokenValidityDate">
+        UPDATE t_account
+        <set>
+            validity_date = #{validityDate}
+        </set>
+        WHERE user_id=#{userId}
+    </update>
+
+</mapper>

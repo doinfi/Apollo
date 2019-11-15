@@ -1,0 +1,20 @@
+syntax = "proto3";
+package com.yf.coros.training;
+option java_outer_classname = "ResponsePb";
+
+//需要导入any.proto文件才可实现泛型
+import "google/protobuf/any.proto";
+
+/**
+ * 服务端返回的Pb数据
+ *
+ * @author DingHui
+ * @date 2019/11/29
+ */
+message Response {
+
+    string json_parameter=1;//消息附带的json信息
+    string result=2;//状态码
+    string message=3;//消息
+    google.protobuf.Any data=4;//泛型对象，存放其他pb格式的数据
+}

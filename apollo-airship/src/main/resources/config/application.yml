@@ -1,0 +1,78 @@
+zookeeper:
+  address: ${zookeeper.address}
+
+dubbo:
+  port: ${providerPort}
+
+#endpoints:
+#  enabled: ${endpointsEnabled}
+
+management:
+  security:
+    enabled: ${securityEnabled}
+
+mybatis:
+  mapper-locations: classpath:/config/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: ${httpPort}
+#  context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  datasource:
+    driver-class-name:  com.mysql.jdbc.Driver
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: ${druid.initialSize}
+      max-active: ${druid.maxActive}
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid2/*"
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: 11
+        login-password: 11
+        # 设置白名单
+        allow: 127.0.0.1
+        # 设置黑名单
+        #deny: 192.168.1.73
+      # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+      aop-patterns: com.apollo.*.service.*
+  http:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  application:
+    name: @project.artifactId@
+
+
+# 日志文件路径
+logging:
+  config: ${logConfig}
+
+#主键生成器配置信息
+primaryKey:
+    #序列号占14位
+    sequenceBit: 14
+    # 模块号占7位
+    modeBit: 7
+    # 机器码或者服务实例编号占7位
+    workeridBit: 7
+    # 机器码或者服务实例编号
+    workerid: ${workerid}
+
+#打包类型，1：现场正式环境，2：测试环境，3：开发环境
+deployType: ${deployType}

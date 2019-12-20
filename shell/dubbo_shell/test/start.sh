@@ -18,7 +18,7 @@ curPath=$(pwd)
 dubbo_home_dir=$(cd `dirname $0`; cd ..; pwd)
 cd ${curPath}
 
-command_for_search=" ${dubbo_home_dir}/${microServiceName}/coros-${microServiceName}-2.0.jar"
+command_for_search=" ${dubbo_home_dir}/${microServiceName}/${microServiceName}-2.0.jar"
 log_dir=/data/log/dubbo/${microServiceName}
 
 # data
@@ -33,7 +33,7 @@ jvm_cmd=${jvm_cmd_param_normal}
 if [[ "${microServiceName}" == "data" ]]
 then
   jvm_cmd=${jvm_cmd_param_very_high}
-elif [[ "${microServiceName}" == "rest" || "${microServiceName}" == "user" || "${microServiceName}" == "open" || "${microServiceName}" == "thirdparty" || "${microServiceName}" == "dataParser" || "${microServiceName}" == "admin" ]]
+elif [[ "${microServiceName}" == "airship" || "${microServiceName}" == "controller" ]]
 then
   jvm_cmd=${jvm_cmd_param_high}
 fi

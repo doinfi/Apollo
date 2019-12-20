@@ -1,0 +1,48 @@
+zookeeper:
+  address: 127.0.0.1:2181
+
+#security打开，health健康检查端口可以使用，sporing boot admin 可以用。关闭状态容易泄露信息
+management:
+  security:
+    enabled: false
+
+server:
+  port: 9990
+  context-path: /
+  #  connectionTimeout: 60000
+  tomcat:
+    uri-encoding: UTF-8
+    basedir: /Users/Infi/Downloads/logs/rest-tomcat
+    accesslog:
+      enabled: true
+      #请求真实IP、远程主机IP、本机IP、远程用户名、访问日期和时间（响应时间，结束时间点）、 HTTP请求中的第一行、发送字节数（响应字节数，返回的Response字节数）、状态码、耗时毫秒、协议、请求方式、查询串、请求的URL路径、耗时秒
+      pattern: '%{X-Forwarded-For}i %a %A %l %{yyyy-MM-dd HH:mm:ss.SSS}t "%r" %b(byte) %s %D(ms)  %H %m %q %U %T'
+spring:
+  http:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+      location: /Users/Infi/Downloads/tmp/
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  application:
+    name: controller
+# 日志文件路径
+logging:
+  config: classpath:config/logback-test.xml
+
+#主键生成器配置信息
+primaryKey:
+  #序列号占14位
+  sequenceBit: 14
+  # 模块号占7位
+  modeBit: 7
+  # 机器码或者服务实例编号占7位
+  workeridBit: 7
+  # 机器码或者服务实例编号
+  workerid: 1
+
+#打包类型，1：现场正式环境，2：测试环境，3：开发环境
+deployType: develop

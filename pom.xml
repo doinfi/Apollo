@@ -20,10 +20,10 @@
 
     <modules>
         <module>poms</module>
-        <module>common</module>
-        <module>airship-api</module>
-        <module>airship</module>
-        <module>controller</module>
+        <module>apollo-common</module>
+        <module>apollo-airship-api</module>
+        <module>apollo-airship</module>
+        <module>apollo-controller</module>
     </modules>
 
     <build>

@@ -17,7 +17,7 @@
             <dependency>
                 <groupId>com.apollo</groupId>
                 <artifactId>poms</artifactId>
-                <version>${poms.version}</version>
+                <version>2.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -110,57 +110,22 @@
 
         <dependency>
             <groupId>org.javolution</groupId>
-            <artifactId>javolution</artifactId>
-            <version>5.3.1</version>
+            <artifactId>javolution-core-java</artifactId>
+            <version>6.0.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.xolstice.maven.plugins/protobuf-maven-plugin -->
         <dependency>
-            <groupId>org.xolstice.maven.plugins</groupId>
-            <artifactId>protobuf-maven-plugin</artifactId>
-            <version>0.6.1</version>
+            <groupId>com.googlecode.protobuf-java-format</groupId>
+            <artifactId>protobuf-java-format</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <!--PB相关的配置-->
-        <extensions>
-            <extension>
-                <!--引入操作系统os设置的属性插件，否则${os.detected.classifier}操作系统版本会找不到-->
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>1.5.0.Final</version>
-            </extension>
-        </extensions>
-        <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <extensions>true</extensions>
-                <!--<version>3.3.0</version>-->
-                <configuration>
-                    <!--
-                    The version of protoc must match protobuf-java. If you don‘t depend on
-                    protobuf-java directly, you will be transitively depending on the
-                    protobuf-java version that grpc depends on.
-                    -->
-                    <protocArtifact>com.google.protobuf:protoc:3.5.1-1:exe:${os.detected.classifier}
-                    </protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:0.14.0:exe:${os.detected.classifier}</pluginArtifact>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

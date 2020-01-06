@@ -1,19 +1,17 @@
 package com.apollo.response;
 
-import com.apollo.common.utils.YFHeaderUtils;
 import com.ibm.icu.util.LocaleMatcher;
 import com.ibm.icu.util.ULocale;
-
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import javax.servlet.http.HttpServletRequest;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * 与Client端交互用的实体类
@@ -56,7 +54,8 @@ public class ResponseVO implements Serializable {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest();
         String language = "en-US";
-        String languageForHeader = YFHeaderUtils.getHeaderLanguage(request);
+//        String languageForHeader = YFHeaderUtils.getHeaderLanguage(request);
+        String languageForHeader = "zh-CN";
         if (StringUtils.isNotBlank(languageForHeader)) {
             language = languageForHeader;
         }

@@ -1,7 +1,6 @@
 package com.apollo.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.apollo.common.utils.YFHeaderUtils;
 import com.apollo.common.utils.YfTools;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -60,7 +59,7 @@ public abstract class YfInterceptor extends HandlerInterceptorAdapter {
             msg.append("]");
         }
         msg.append("yfHeader:");
-        msg.append(JSON.toJSONString(YFHeaderUtils.getYFHeader(request)));
+//        msg.append(JSON.toJSONString(YFHeaderUtils.getYFHeader(request)));
         msg.append("错误代码：");
         msg.append(JSON.toJSONString(resultMap));
 

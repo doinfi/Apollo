@@ -228,7 +228,7 @@
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.10</version>
+                <version>1.13</version>
             </dependency>
 
             <dependency>
@@ -284,6 +284,8 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <!--不要用版本6-->
                 <version>5.1.45</version>
+                <!--链接mysql8.0版本-->
+                <!--                <version>8.0.19</version>-->
             </dependency>
 
             <dependency>
@@ -441,8 +443,8 @@
 
             <dependency>
                 <groupId>org.javolution</groupId>
-                <artifactId>javolution</artifactId>
-                <version>5.3.1</version>
+                <artifactId>javolution-core-java</artifactId>
+                <version>6.0.0</version>
             </dependency>
 
             <dependency>
@@ -493,11 +495,6 @@
                 <version>3.14.1</version>
             </dependency>
 
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.13</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

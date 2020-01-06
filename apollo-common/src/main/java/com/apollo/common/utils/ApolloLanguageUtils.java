@@ -19,7 +19,8 @@ public class ApolloLanguageUtils {
     public static String getLanguage(String yfHeaderJson) {
 
         String language = "en-US";
-        String languageForHeader = YFHeaderUtils.getHeaderLanguage2String(yfHeaderJson);
+//        String languageForHeader = YFHeaderUtils.getHeaderLanguage2String(yfHeaderJson);
+        String languageForHeader = "zh-CN";
         if (StringUtils.isNotBlank(languageForHeader)) {
             language = languageForHeader;
         }
@@ -50,7 +51,8 @@ public class ApolloLanguageUtils {
      */
     public static String getLanguageByRequest(String yfHeaderJson) {
         String userLanguage = "";
-        String languageForHeader = YFHeaderUtils.getHeaderLanguage2String(yfHeaderJson);
+//        String languageForHeader = YFHeaderUtils.getHeaderLanguage2String(yfHeaderJson);
+        String languageForHeader = "zh-CN";
         if (StringUtils.isNotBlank(languageForHeader)) {
             userLanguage = languageForHeader;
         }

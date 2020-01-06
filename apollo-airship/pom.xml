@@ -31,13 +31,13 @@
     <dependencies>
         <dependency>
             <groupId>com.apollo</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>apollo-common</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.apollo</groupId>
-            <artifactId>airship-api</artifactId>
+            <artifactId>apollo-airship-api</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

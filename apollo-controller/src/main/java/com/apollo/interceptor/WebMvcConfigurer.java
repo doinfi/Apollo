@@ -75,10 +75,12 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         };
     }
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean(){
-        FilterRegistrationBean bean = new FilterRegistrationBean();
-        bean.addUrlPatterns("/*");
-        return bean;
-    }
+    // TODO 2020年03月23日 启动报错，因此删除
+    // 错误信息：Unable to start embedded Tomcat Filter must not be null
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean() {
+//        FilterRegistrationBean bean = new FilterRegistrationBean();
+//        bean.addUrlPatterns("/*");
+//        return bean;
+//    }
 }

@@ -15,6 +15,6 @@ import com.apollo.common.primary.YFPrimaryKeyUtils;
 public class PrimaryKey {
 
     public static long getId(Integer modeId) throws YfException {
-        return YFPrimaryKeyUtils.getId(modeId, Constants.WORK_ID);
+        return YFPrimaryKeyUtils.getId(modeId, 1L);
     }
 }

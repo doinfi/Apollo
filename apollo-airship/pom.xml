@@ -13,7 +13,7 @@
     </parent>
 
     <properties>
-        <output.dir>${project.build.directory}/../../output/user</output.dir>
+        <output.dir>${project.build.directory}/../../output/airship</output.dir>
     </properties>
 
     <dependencyManagement>

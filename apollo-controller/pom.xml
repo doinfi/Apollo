@@ -13,7 +13,7 @@
     </parent>
 
     <properties>
-        <output.dir>${project.build.directory}/../../output/rest</output.dir>
+        <output.dir>${project.build.directory}/../../output/controller</output.dir>
     </properties>
 
     <dependencyManagement>

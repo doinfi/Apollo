@@ -25,4 +25,9 @@ public class AccountServiceImpl implements AccountService {
     public Account findAccountByUserId(Long userId) {
         return accountDao.findAccountByUserId(userId);
     }
+
+    @Override
+    public void update(Account account) {
+        accountDao.update(account);
+    }
 }

@@ -15,4 +15,6 @@ public interface AccountDao {
      * @return 帐号信息
      */
     Account findAccountByUserId(@Param("userId") Long userId);
+
+    void update(Account account);
 }

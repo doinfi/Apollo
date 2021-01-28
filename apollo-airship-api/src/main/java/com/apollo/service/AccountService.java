@@ -17,4 +17,6 @@ public interface AccountService {
      * @return 帐号信息
      */
     Account findAccountByUserId(Long userId);
+
+    void update(Account account);
 }

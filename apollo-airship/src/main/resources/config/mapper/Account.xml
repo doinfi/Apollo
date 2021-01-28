@@ -6,6 +6,15 @@
     <sql id="common_fields">
         user_id, name
     </sql>
+    <update id="update">
+        update t_account
+        <set>
+            name = #{name}
+        </set>
+        <where>
+            user_id = #{userId}
+        </where>
+    </update>
 
     <select id="findAccountByUserId" resultMap="UserAccountMap">
         SELECT

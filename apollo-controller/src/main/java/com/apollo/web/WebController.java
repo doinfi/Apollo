@@ -11,10 +11,7 @@ import com.apollo.response.ResponseVO;
 import com.apollo.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,4 +42,18 @@ public class WebController {
         responseVO.setData(account);
         return responseVO;
     }
+
+    /**
+     * 修改帐号信息
+     *
+     * @param request request
+     * @return
+     */
+    @DisableAuth
+    @RequestMapping(value = "/update")
+    public ResponseVO update(HttpServletRequest request, @RequestBody Account account) {
+        accountService.update(account);
+        return new ResponseVO(MessageKey.RETURN_OK);
+    }
+
 }

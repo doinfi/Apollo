@@ -31,7 +31,7 @@
         <poi.version>3.17</poi.version>
 
         <spring-kafka.version>1.3.4.RELEASE</spring-kafka.version>
-        <kafka-clients.version>0.11.0.0</kafka-clients.version>
+        <kafka-clients.version>0.11.0.2</kafka-clients.version>
     </properties>
 
     <dependencyManagement>
